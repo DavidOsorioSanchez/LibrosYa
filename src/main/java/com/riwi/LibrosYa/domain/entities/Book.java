@@ -4,10 +4,11 @@ import com.riwi.LibrosYa.Util.enums.Genre;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
 @NoArgsConstructor
@@ -19,13 +20,12 @@ public class Book {
     @Column(nullable = false)
     private String title;
     private String Author;
-    private LocalDateTime publicationYear;
+    private LocalDate publicationYear;
     @Enumerated(EnumType.STRING)
     private Genre genre;
     private  String isbn;
 
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @OneToMany(
             mappedBy = "book",
             fetch = FetchType.EAGER,
@@ -35,7 +35,6 @@ public class Book {
     private List<Loan> loan;
 
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @OneToMany(
             mappedBy = "book",
             fetch = FetchType.EAGER,

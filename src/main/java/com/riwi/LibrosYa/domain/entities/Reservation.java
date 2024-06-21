@@ -1,15 +1,14 @@
 package com.riwi.LibrosYa.domain.entities;
 
-import com.riwi.LibrosYa.Util.enums.Status;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
-@Data
+
+@Getter
+@Setter
 @Entity
 @Builder
 @NoArgsConstructor
@@ -18,9 +17,10 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime reservationDate;
-    @Enumerated(EnumType.STRING)
-    private Status status;
+    @CreationTimestamp
+    private LocalDate reservationDate;
+
+    private Boolean status;
 
 
     @ManyToOne(fetch = FetchType.LAZY)

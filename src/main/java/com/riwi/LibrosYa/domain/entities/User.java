@@ -6,7 +6,8 @@ import lombok.*;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
 @NoArgsConstructor
@@ -15,19 +16,19 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String userName;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String password;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String email;
+    @Column(length = 100)
     private String fullName;
     @Enumerated(EnumType.STRING)
     private Role role;
 
 
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @OneToMany(
             mappedBy = "user",
             fetch = FetchType.EAGER,
@@ -37,7 +38,6 @@ public class User {
     private List<Loan> loan;
 
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @OneToMany(
             mappedBy = "user",
             fetch = FetchType.EAGER,
