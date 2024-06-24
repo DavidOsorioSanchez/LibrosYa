@@ -7,9 +7,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @AllArgsConstructor
@@ -20,22 +19,26 @@ public class UserControllers implements GenericController<UserReq, UserResp, Lon
     private final IUser iUserService;
 
     @Override
+    @PostMapping
     public ResponseEntity<UserResp> create(@RequestBody UserReq request) {
         return ResponseEntity.ok(this.iUserService.create(request));
     }
 
     @Override
-    public ResponseEntity<UserResp> get(Long aLong) {
-        return null;
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<UserResp> get(@PathVariable Long id) {
+        return ResponseEntity.ok(this.iUserService.get(id));
     }
 
     @Override
-    public ResponseEntity<UserResp> update(UserReq request, Long aLong) {
-        return null;
+    public ResponseEntity<UserResp> update(@Validated @RequestBody UserReq request,@PathVariable  Long id) {
+        return ResponseEntity.ok(this.iUserService.update(request, id));
     }
 
     @Override
-    public ResponseEntity<Void> delete(Long aLong) {
-        return null;
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        this.iUserService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

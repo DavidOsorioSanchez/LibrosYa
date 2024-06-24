@@ -1,5 +1,7 @@
 package com.riwi.LibrosYa.infrastructure.service;
 
+import com.riwi.LibrosYa.Util.exception.BadRequestException;
+import com.riwi.LibrosYa.Util.messages.ErrorMessages;
 import com.riwi.LibrosYa.api.dto.request.UserReq;
 import com.riwi.LibrosYa.api.dto.response.UserResp;
 import com.riwi.LibrosYa.domain.entities.User;
@@ -30,17 +32,26 @@ public class UserService implements IUser {
     }
 
     @Override
-    public UserResp get(Long aLong) {
-        return null;
+    public UserResp get(Long id) {
+        return this.userMapper.toUserResponse(this.find(id));
     }
 
     @Override
-    public UserResp update(UserReq request, Long aLong) {
-        return null;
+    public UserResp update(UserReq request, Long id) {
+        User user = this.find(id);
+        user = this.userMapper.toUserEntity(request);
+        user.setId(id);
+
+        return this.userMapper.toUserResponse(this.userRepository.save(user));
     }
 
     @Override
-    public void delete(Long aLong) {
+    public void delete(Long id) {
+        this.userRepository.delete(this.find(id));
+    }
 
+    private User find(Long id) {
+        return this.userRepository.findById(id)
+                .orElseThrow(() -> new BadRequestException(ErrorMessages.idNotFound("Servicio")));
     }
 }
