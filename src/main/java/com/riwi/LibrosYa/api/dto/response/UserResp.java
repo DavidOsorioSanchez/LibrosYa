@@ -1,8 +1,7 @@
 package com.riwi.LibrosYa.api.dto.response;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import com.riwi.LibrosYa.Util.enums.Role;
+
 import lombok.*;
 
 @Setter
@@ -15,4 +14,5 @@ public class UserResp {
     private String name;
     private  String email;
     private String fullName;
+    private Role role;
 }

@@ -16,9 +16,13 @@ public interface UserMapper {
     @InheritInverseConfiguration
     UserResp toUserResponse(User userEntity);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "loan", source = "", ignore = true)
-    @Mapping(target = "reservations", source = "", ignore = true)
+    @Mapping(source = "name", target = "userName")
+    @Mapping(source = "email", target = "email")
+    @Mapping(source = "fullName", target = "fullName")
+    @Mapping(source = "role", target = "role")
+    @Mapping(source = "password", target = "password")
+    @Mapping(source = "loan", target = "loan")
+    @Mapping(source = "reservations", target = "reservations")
     User toUserEntity(UserReq userRequest);
     
     List<UserResp>UserListToResponse(List<User> userEntities);

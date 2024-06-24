@@ -27,8 +27,9 @@ public class UserService implements IUser {
 
     @Override
     public UserResp create(UserReq request) {
-        User userEntity = this.userMapper.toUserEntity(request);
-        return this.userMapper.toUserResponse(this.userRepository.save(userEntity));
+         User userEntity = this.userMapper.toUserEntity(request);
+         return this.userMapper.toUserResponse(this.userRepository.save(userEntity));
+
     }
 
     @Override
@@ -38,11 +39,11 @@ public class UserService implements IUser {
 
     @Override
     public UserResp update(UserReq request, Long id) {
-        User user = this.find(id);
-        user = this.userMapper.toUserEntity(request);
-        user.setId(id);
+         User user = this.find(id);
+         user = this.userMapper.toUserEntity(request);
+         user.setId(id);
 
-        return this.userMapper.toUserResponse(this.userRepository.save(user));
+         return this.userMapper.toUserResponse(this.userRepository.save(user));
     }
 
     @Override
